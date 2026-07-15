@@ -25,8 +25,7 @@
         "GOOGLE_MAPS_API_KEY": "AIzaSyC3fz7Kfcl4cMrI4WjW5BP6qFp594fXBUc"
       },
       "android": {
-        "buildType": "app-bundle",
-        "softwareKeyboardLayoutMode": "resize"
+        "buildType": "app-bundle"
       }
     }
   }
