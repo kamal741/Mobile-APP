@@ -1,0 +1,33 @@
+{
+  "cli": {
+    "version": ">= 16.0.0"
+  },
+  "build": {
+    "preview": {
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://api.showing-trail.com",
+        "EXPO_PUBLIC_FIREBASE_PUSH_ENABLED": "true",
+        "GOOGLE_SERVICES_JSON": "./google-services.json",
+        "GOOGLE_MAPS_API_KEY": "AIzaSyC3fz7Kfcl4cMrI4WjW5BP6qFp594fXBUc"
+      },
+      "android": {
+        "buildType": "apk"
+      },
+      "ios": {
+        "simulator": true
+      }
+    },
+    "production": {
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://api.showing-trail.com",
+        "EXPO_PUBLIC_FIREBASE_PUSH_ENABLED": "true",
+        "GOOGLE_SERVICES_JSON": "./google-services.json",
+        "GOOGLE_MAPS_API_KEY": "AIzaSyC3fz7Kfcl4cMrI4WjW5BP6qFp594fXBUc"
+      },
+      "android": {
+        "buildType": "app-bundle",
+        "softwareKeyboardLayoutMode": "resize"
+      }
+    }
+  }
+}

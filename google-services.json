@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "70319298060",
+    "project_id": "showing-trails-project-dev",
+    "storage_bucket": "showing-trails-project-dev.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:70319298060:android:222d64b207e34278b74029",
+        "android_client_info": {
+          "package_name": "com.showingtrail.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASslHu79Awi91EUo8RAITalaSLnW3Hh3o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

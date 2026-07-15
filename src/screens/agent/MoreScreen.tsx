@@ -1,0 +1,210 @@
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useAuth } from '../../contexts/AuthContext';
+import { Card, CardContent } from '../../components/Card';
+import type { RootStackParamList } from '../../navigation/types';
+import NavbarAgent from '@/screens/agent/components/NavbarAgent';
+import { APP_VERSION } from '@/constants/appVersion';
+
+const MENU_ITEMS = [
+  { id: 'documents', icon: '📄', label: 'Documents', route: 'Documents' },
+  { id: 'media', icon: '📸', label: 'Media Center', route: 'Media' },
+  { id: 'reports', icon: '📊', label: 'Reports', route: 'Reports' },
+  { id: 'requirements', icon: '📋', label: 'Requirements Hub', route: 'Requirements' },
+  { id: 'directory', icon: '📒', label: 'Contact Directory', route: 'Directory' },
+  { id: 'branding', icon: '🎨', label: 'Branding Settings', route: 'Branding' },
+  { id: 'calendar', icon: '📅', label: 'Personal Calendar', route: 'Calendar' },
+];
+
+function getRoleLabel(role?: 'agent' | 'client' | 'brokerage' | 'admin'): string {
+  switch (role) {
+    case 'brokerage':
+      return 'Broker Owner';
+    case 'client':
+      return 'Client';
+    case 'admin':
+      return 'Super Admin';
+    default:
+      return 'Agent';
+  }
+}
+
+export function MoreScreen() {
+  const { user } = useAuth();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const roleLabel = getRoleLabel(user?.role);
+
+  const handleMenuPress = (item: typeof MENU_ITEMS[0]) => {
+    if (item.route === 'Branding') {
+      navigation.navigate('Branding');
+      return;
+    }
+    Alert.alert('Coming Soon', `${item.label} feature is coming soon!`);
+  };
+
+  return (
+    <>
+      <NavbarAgent title="More" />
+      <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+        <Card style={styles.profileCard}>
+          <CardContent style={styles.profileContent}>
+            <View style={styles.avatar}>
+              <Text style={styles.avatarText}>
+                {user?.firstName?.[0]}{user?.lastName?.[0]}
+              </Text>
+            </View>
+            <View style={styles.profileInfo}>
+              <Text style={styles.profileName}>
+                {user?.firstName} {user?.lastName}
+              </Text>
+              <Text style={styles.profileEmail}>{user?.email}</Text>
+              <View style={styles.roleBadge}>
+                <Text style={styles.roleText}>Role: {roleLabel}</Text>
+              </View>
+            </View>
+          </CardContent>
+        </Card>
+
+        <View style={styles.menuSection}>
+          <Text style={styles.sectionTitle}>Features</Text>
+          {MENU_ITEMS.map((item) => (
+            <TouchableOpacity
+              key={item.id}
+              style={styles.menuItem}
+              onPress={() => handleMenuPress(item)}
+            >
+              <Text style={styles.menuIcon}>{item.icon}</Text>
+              <Text style={styles.menuLabel}>{item.label}</Text>
+              <Text style={styles.menuArrow}>›</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+
+        <View style={styles.menuSection}>
+          <Text style={styles.sectionTitle}>Account</Text>
+          <TouchableOpacity
+            style={styles.menuItem}
+            onPress={() => navigation.navigate('MyProfile')}
+          >
+            <Text style={styles.menuIcon}>👤</Text>
+            <Text style={styles.menuLabel}>My profile</Text>
+            <Text style={styles.menuArrow}>›</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.menuItem}>
+            <Text style={styles.menuIcon}>❓</Text>
+            <Text style={styles.menuLabel}>Help & Support</Text>
+            <Text style={styles.menuArrow}>›</Text>
+          </TouchableOpacity>
+        </View>
+
+        <Text style={styles.version}>Showing Trail v{APP_VERSION}</Text>
+      </ScrollView>
+    </>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f8fafc',
+  },
+  content: {
+    padding: 16,
+  },
+  profileCard: {
+    marginBottom: 24,
+  },
+  profileContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  avatar: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: '#1e40af',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 16,
+  },
+  avatarText: {
+    color: '#ffffff',
+    fontSize: 24,
+    fontWeight: '600',
+  },
+  profileInfo: {
+    flex: 1,
+  },
+  profileName: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: '#1e293b',
+  },
+  profileEmail: {
+    fontSize: 14,
+    color: '#64748b',
+    marginTop: 2,
+  },
+  roleBadge: {
+    backgroundColor: '#1e40af',
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 12,
+    alignSelf: 'flex-start',
+    marginTop: 8,
+  },
+  roleText: {
+    color: '#ffffff',
+    fontSize: 12,
+    fontWeight: '600',
+  },
+  menuSection: {
+    backgroundColor: '#ffffff',
+    borderRadius: 12,
+    marginBottom: 16,
+    overflow: 'hidden',
+  },
+  sectionTitle: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#94a3b8',
+    textTransform: 'uppercase',
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    paddingBottom: 8,
+  },
+  menuItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f1f5f9',
+  },
+  menuIcon: {
+    fontSize: 20,
+    marginRight: 12,
+  },
+  menuLabel: {
+    flex: 1,
+    fontSize: 16,
+    color: '#1e293b',
+  },
+  menuArrow: {
+    fontSize: 20,
+    color: '#94a3b8',
+  },
+  logoutItem: {
+    borderBottomWidth: 0,
+  },
+  logoutText: {
+    color: '#dc2626',
+  },
+  version: {
+    textAlign: 'center',
+    fontSize: 12,
+    color: '#94a3b8',
+    marginTop: 8,
+  },
+});

@@ -1,0 +1,26 @@
+// ─── Color Palette ────────────────────────────────────────────────────────────
+export const Colors = {
+  bg:           '#f0f2f5',
+  surface:      '#ffffff',
+  subtle:       '#f8f9fb',
+  border:       '#e8eaed',
+  borderMid:    '#d1d5db',
+  primary:      '#1e40af',
+  primaryLight: '#dbeafe',
+  text:         '#1a1f36',
+  textSub:      '#6b7280',
+  textMuted:    '#9ca3af',
+  textInverse:  '#ffffff',
+  success:      '#16a34a',
+  successBg:    '#f0fdf4',
+  successBdr:   '#bbf7d0',
+  warn:         '#f59e0b',
+  dragHighlight:'rgba(30,64,175,0.08)',
+  dragBorder:   '#1e40af',
+  dot: {
+    mustHave:    '#f59e0b',
+    important:   '#3b82f6',
+    lowPriority: '#6b7280',
+    notImportant:'#d1d5db',
+  },
+} as const;
